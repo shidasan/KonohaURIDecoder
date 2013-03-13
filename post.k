@@ -9,7 +9,7 @@ System.getenv("REQUEST_METHOD"); //POST or GET
 //POST は標準出力,GETは環境変数から取得
 //htmlエスケープは未実装
 
-String getMsg() {
+String POST() {
 	String mtd_type = System.getenv("REQUEST_METHOD");
 	System.p(mtd_type);
 	if (mtd_type != "POST") {
@@ -24,4 +24,4 @@ String getMsg() {
 	return query.replace(/\\n/g,"\n").replace(/\\\"/g, "\\\\\\\"");
 }
 
-System.p(getMsg());
+System.p(POST());
