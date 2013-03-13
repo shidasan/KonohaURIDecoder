@@ -8,9 +8,11 @@
  * update by myoan 22/Oct/2012 fix to follow new konoha.
  */
 
+Import("MiniKonoha.Map");
 Import("Syntax.CStyleWhile");
 Import("Syntax.Null");
 Import("Type.Bytes");
+Import("JavaScript.Array");
 Import("JavaScript.Regexp");
 Import("JavaScript.String");
 Import("posix.process");
@@ -162,15 +164,26 @@ String Bytes.toString() {
 	return new String(buf);
 }
 
-String GET() {
+void GET() {
 	String mtd_type = System.getenv("REQUEST_METHOD");
 	if (mtd_type != "GET") {
 		// ERROR Handling: only POST Method is available
 	}
-	String query = System.getenv("QUERY_STRING"); 
-	query = decodeURI(query);
-	return query;
+	String[] query = System.getenv("QUERY_STRING").split("="); 
+	int i = 0;
+	Map[String] m = new Map[String]();
+	while (i < query.getSize()) {
+		m.set(query[i], decodeURI(query[i+1]));
+		i = i + 2;
+	}
+	Array[String] keys = m.keys();
+	System.p("keys = " + keys);
+	i = 0;
+	while (i < keys.getSize()) {
+		System.p(m.get(keys[i]));
+		i = i + 1;
+	}
 }
 
-System.p(GET());
+GET();
 //System.p(decodeURI("%e5%b1%b1%e6%a2%a8"));
