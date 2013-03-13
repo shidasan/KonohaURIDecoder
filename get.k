@@ -169,12 +169,13 @@ void GET() {
 	if (mtd_type != "GET") {
 		// ERROR Handling: only POST Method is available
 	}
-	String[] query = System.getenv("QUERY_STRING").split("="); 
+	String[] querys = System.getenv("QUERY_STRING").split("&"); 
 	int i = 0;
 	Map[String] m = new Map[String]();
-	while (i < query.getSize()) {
-		m.set(query[i], decodeURI(query[i+1]));
-		i = i + 2;
+	while (i < querys.getSize()) {
+		String[] query = querys[i].split("=");
+		m.set(query[0], decodeURI(query[1]));
+		i = i + 1;
 	}
 	Array[String] keys = m.keys();
 	System.p("keys = " + keys);
